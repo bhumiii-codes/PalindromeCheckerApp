@@ -4,27 +4,49 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=================================");
-        System.out.println(" Welcome to Palindrome Checker ");
-        System.out.println("=================================");
-
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter a word: ");
-        String word = scanner.nextLine();
+        while (true) {
 
-        word = word.replaceAll("\\s+", "");
+            System.out.println("\n=================================");
+            System.out.println("      PALINDROME CHECKER APP     ");
+            System.out.println("=================================");
+            System.out.println("1. Check Palindrome");
+            System.out.println("2. Exit");
+            System.out.print("Enter your choice: ");
 
-        String reversed = "";
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed += word.charAt(i);
-        }
+            if (choice == 1) {
 
-        if (word.equalsIgnoreCase(reversed)) {
-            System.out.println(word + " is a Palindrome");
-        } else {
-            System.out.println(word + " is NOT a Palindrome");
+                System.out.print("Enter text: ");
+                String word = scanner.nextLine();
+
+                word = word.replaceAll("\\s+", "");
+
+                String reversed = "";
+
+                for (int i = word.length() - 1; i >= 0; i--) {
+                    reversed += word.charAt(i);
+                }
+
+                if (word.equalsIgnoreCase(reversed)) {
+                    System.out.println("Palindrome ✅");
+                } else {
+                    System.out.println("Not a Palindrome ❌");
+                }
+
+            } else if (choice == 2) {
+
+                System.out.println("Exiting application...");
+                break;
+
+            } else {
+
+                System.out.println("Invalid choice. Try again.");
+
+            }
         }
 
         scanner.close();
