@@ -5,6 +5,8 @@ public class PalindromeCheckerApp {
         System.out.println("=================================");
         System.out.println(" Welcome to Palindrome Checker ");
         System.out.println("=================================");
-
+        System.out.println("UC1 Feature Implemented");
     }
+
+
 }
