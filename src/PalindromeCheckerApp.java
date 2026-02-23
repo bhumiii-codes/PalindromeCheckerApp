@@ -19,7 +19,7 @@ public class PalindromeCheckerApp {
             reversed += word.charAt(i);
         }
 
-        if (word.equals(reversed)) {
+        if (word.equalsIgnoreCase(reversed)) {
             System.out.println(word + " is a Palindrome");
         } else {
             System.out.println(word + " is NOT a Palindrome");
