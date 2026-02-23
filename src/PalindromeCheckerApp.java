@@ -13,6 +13,8 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a word: ");
         String word = scanner.nextLine();
 
+        word = word.replaceAll("\\s+", "");
+
         String reversed = "";
 
         for (int i = word.length() - 1; i >= 0; i--) {
