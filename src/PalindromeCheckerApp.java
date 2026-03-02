@@ -2,65 +2,97 @@ import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
-    public static void main(String[] args) {
+    // Node class for Singly Linked List
+    static class Node {
+        char data;
+        Node next;
 
-        PalindromeCheckerApp app = new PalindromeCheckerApp();
-        app.start();
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
     }
 
-    public void start() {
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        System.out.print("Enter text: ");
+        String input = scanner.nextLine().replaceAll("\\s+", "").toLowerCase();
 
-            displayMenu();
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+        Node head = buildLinkedList(input);
 
-            if (choice == 1) {
-
-                System.out.print("Enter text: ");
-                String word = scanner.nextLine();
-
-                if (isPalindrome(word)) {
-                    System.out.println("Palindrome ✅");
-                } else {
-                    System.out.println("Not a Palindrome ❌");
-                }
-
-            } else if (choice == 2) {
-
-                System.out.println("Exiting application...");
-                break;
-
-            } else {
-                System.out.println("Invalid choice.");
-            }
+        if (isPalindrome(head)) {
+            System.out.println("Palindrome ✅");
+        } else {
+            System.out.println("Not a Palindrome ❌");
         }
 
         scanner.close();
     }
 
-    public void displayMenu() {
-        System.out.println("\n=================================");
-        System.out.println("      PALINDROME CHECKER APP     ");
-        System.out.println("=================================");
-        System.out.println("1. Check Palindrome");
-        System.out.println("2. Exit");
-        System.out.print("Enter your choice: ");
-    }
+    // Convert String to Linked List
+    public static Node buildLinkedList(String input) {
+        Node head = null, tail = null;
 
-    public boolean isPalindrome(String word) {
-
-        word = word.replaceAll("\\s+", "");
-
-        String reversed = "";
-
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed += word.charAt(i);
+        for (char ch : input.toCharArray()) {
+            Node newNode = new Node(ch);
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
         }
 
-        return word.equalsIgnoreCase(reversed);
+        return head;
+    }
+
+    // Check Palindrome using Linked List
+    public static boolean isPalindrome(Node head) {
+
+        if (head == null || head.next == null)
+            return true;
+
+        Node slow = head;
+        Node fast = head;
+
+        // Find middle (Fast & Slow pointer)
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse second half
+        Node secondHalf = reverse(slow);
+        Node firstHalf = head;
+
+        // Compare halves
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data)
+                return false;
+
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
+
+    // Reverse linked list
+    public static Node reverse(Node head) {
+
+        Node prev = null;
+        Node current = head;
+
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
     }
 }
