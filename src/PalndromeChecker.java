@@ -1,24 +1,12 @@
 public class PalindromeChecker {
 
+    private PalindromeStrategy strategy;
+
+    public PalindromeChecker(PalindromeStrategy strategy) {
+        this.strategy = strategy;
+    }
+
     public boolean checkPalindrome(String input) {
-
-        String normalized = input
-                .replaceAll("\\s+", "")
-                .toLowerCase();
-
-        int start = 0;
-        int end = normalized.length() - 1;
-
-        while (start < end) {
-
-            if (normalized.charAt(start) != normalized.charAt(end)) {
-                return false;
-            }
-
-            start++;
-            end--;
-        }
-
-        return true;
+        return strategy.check(input);
     }
 }
